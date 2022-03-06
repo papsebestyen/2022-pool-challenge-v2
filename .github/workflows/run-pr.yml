@@ -1,0 +1,27 @@
+name: Run Modified Solutions on Public Set
+
+on:
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  main:
+    strategy:
+      matrix:
+        pack: ["ch2-S-50"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.9'
+    - name: Install dependencies, fetch tags
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        git fetch --all --tags
+    - name: Run Evaluation
+      run: |
+        inv test-modified-solutions --input-id ${{ matrix.pack }} --fail --no-push-logs

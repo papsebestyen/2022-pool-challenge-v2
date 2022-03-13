@@ -1,7 +1,7 @@
 from scipy.spatial import cKDTree
 import pickle
 import pandas as pd
-from constants import tree_path, data_path
+from constants import data_path
 from pathlib import Path
 import numpy as np
 
